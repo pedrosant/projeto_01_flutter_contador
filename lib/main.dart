@@ -11,6 +11,27 @@ class Home extends StatefulWidget {
 }
 
 class _homeState extends State<Home> {
+  int _pessoas = 0;
+  String  _infoTexto = ("Pode entrar");
+
+
+
+
+  void _changepessoas (int delta){
+    setState(() {
+      _pessoas += delta;
+
+      if(_pessoas < 0){
+        _infoTexto = ("Ta ruim viu !");
+      }else if(_pessoas > 10){
+        _infoTexto = ("Agora melhorou !");
+      }else{
+        _infoTexto = ("Pode entrar");
+      }
+    });
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -24,7 +45,7 @@ class _homeState extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              "Pessoa: 0",
+              "Pessoa: $_pessoas",
               style: TextStyle(color: Colors.teal, fontWeight: FontWeight.bold),
             ),
             Row(
@@ -36,7 +57,7 @@ class _homeState extends State<Home> {
                     child: Text("+1",
                         style: TextStyle(fontSize: 40.0, color: Colors.teal)),
                     onPressed: () {
-                      debugPrint("+1");
+                      _changepessoas(1);
                     },
                   ),
                 ),
@@ -46,14 +67,14 @@ class _homeState extends State<Home> {
                     child: Text("-1",
                         style: TextStyle(fontSize: 40.0, color: Colors.teal)),
                     onPressed: () {
-                      debugPrint("-1");
+                      _changepessoas(-1);
                     },
                   ),
                 ),
               ],
             ),
             Text(
-              "Pode Entrar !",
+              _infoTexto,
               style: TextStyle(
                   color: Colors.teal,
                   fontStyle: FontStyle.italic,
